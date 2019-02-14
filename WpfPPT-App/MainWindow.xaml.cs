@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using Syncfusion.Presentation;
 using HtmlAgilityPack;
 using System.Diagnostics;
+using System.Windows.Documents;
 
 namespace WpfPPT_App
 {
@@ -23,8 +24,8 @@ namespace WpfPPT_App
 
         public MainWindow()
         {
-            InitializeComponent();
-            
+            InitializeComponent();         
+
         }
         private void CreatePPT_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -34,8 +35,8 @@ namespace WpfPPT_App
 
         private void Suggest_Btn_Click(object sender, RoutedEventArgs e)
         {
-            getPictresFromWeb();
-
+               //getKeyWords(Txt_Blk.Text.Trim());
+                getPictresFromWeb();
         }
 
         private void CreateInitialPPt()
@@ -82,13 +83,19 @@ namespace WpfPPT_App
         }
         private void getPictresFromWeb()
         {
-            String query;
-            if (Title_txtBx.Text.Length > 1)
-                query = Title_txtBx.Text.Trim();
-            else
-                query = "ApplePie";
+            String query,q;
+            q = getBlockTextKeyWords();          
 
-            int startPosition = 1;
+            if (Title_txtBx.Text.Length > 1)
+                query = Title_txtBx.Text.Trim();              
+            else//default text instead of error message
+                query = "ApplePie";
+            //adding textblocks bold
+            if (!q.Equals(null))
+                query = query +"+"+ q;
+
+
+                int startPosition = 1;
             Boolean filterSimilarResults = true;
             String SafeSearchFiltering = "Moderate";
 
@@ -195,6 +202,18 @@ namespace WpfPPT_App
                 }
             }
             return "Image.jpg";
+        }
+        private string getBlockTextKeyWords()
+        {
+            string result = null;            
+            List<Inline> inlines = textBlock.Inlines.ToList();
+            foreach (Run line in inlines)
+            {
+                if (line.FontWeight.Equals(FontWeights.Bold))
+                    result += line.Text + "+";
+
+            }
+            return result;
         }
     }
 }

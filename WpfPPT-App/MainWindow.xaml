@@ -54,5 +54,6 @@
             <CheckBox x:Name="checkBox33" Grid.Column="3" Grid.Row="3" />
             <CheckBox x:Name="checkBox34" Grid.Column="3" Grid.Row="4" />
         </Grid>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="127,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="84" Width="266" TextTrimming="CharacterEllipsis"><Run Text="This is   a "/><Run FontWeight="Bold" Text="Bold"/><Run Text=" Text. This "/><Run FontWeight="Bold" Text="team "/><Run Text="is doing very good."/></TextBlock>
     </Grid>
 </Window>
